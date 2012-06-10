@@ -1,38 +1,63 @@
 package styling.entities;
 
+import java.util.List;
+
 public class ClassResult {
 
-	private int numberOfMethods;
-	private int averageNumberOfLines;
-	private int maxNumberOfLines;
+	private String className;
 	
-	public ClassResult(int numberOfMethods, int averageNumberOfLines, int maxNumberOfLines) {
-		this.numberOfMethods = numberOfMethods;
-		this.averageNumberOfLines = averageNumberOfLines;
-		this.maxNumberOfLines = maxNumberOfLines;
+	private int numberOfLines;
+	private int numberOfImports;
+	private int numberOfAttributes;
+	
+	private List<MethodResult> methodResultList;
+
+	public ClassResult(String className, int numberOfLines, int numberOfImports,
+					   int numberOfAttributes, List<MethodResult> methodResultList) {
+		this.className = className;
+		this.numberOfLines = numberOfLines;
+		this.numberOfImports = numberOfImports;
+		this.numberOfAttributes = numberOfAttributes;
+		this.methodResultList = methodResultList;
 	}
 	
-	public int getNumberOfMethods() {
-		return numberOfMethods;
+	public String getClassName() {
+		return className;
 	}
-	
-	public void setNumberOfMethods(int numberOfMethods) {
-		this.numberOfMethods = numberOfMethods;
+
+	public void setClassName(String className) {
+		this.className = className;
 	}
-	
-	public int getAverageNumberOfLines() {
-		return averageNumberOfLines;
+
+	public int getNumberOfLines() {
+		return numberOfLines;
 	}
-	
-	public void setAverageNumberOfLines(int averageNumberOfLines) {
-		this.averageNumberOfLines = averageNumberOfLines;
+
+	public void setNumberOfLines(int numberOfLines) {
+		this.numberOfLines = numberOfLines;
 	}
-	
-	public int getMaxNumberOfLines() {
-		return maxNumberOfLines;
+
+	public int getNumberOfImports() {
+		return numberOfImports;
 	}
-	
-	public void setMaxNumberOfLines(int maxNumberOfLines) {
-		this.maxNumberOfLines = maxNumberOfLines;
+
+	public void setNumberOfImports(int numberOfImports) {
+		this.numberOfImports = numberOfImports;
+	}
+
+	public int getNumberOfAttributes() {
+		return numberOfAttributes;
+	}
+
+	public void setNumberOfAttributes(int numberOfAttributes) {
+		this.numberOfAttributes = numberOfAttributes;
+	}
+
+	public List<MethodResult> getMethodResultList() {
+		return methodResultList;
+	}
+
+	public void setMethodResultList(List<MethodResult> methodResultList) {
+		this.methodResultList = methodResultList;
 	}
 }
