@@ -1,0 +1,6 @@
+rule "Example"
+when
+	Integer()
+then
+	System.out.println("It works!");
+end
