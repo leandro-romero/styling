@@ -37,10 +37,26 @@
 		<version>${drools.version}</version>
 		<type>jar</type>
 	</dependency>
+	
+	<!-- Apache Commons -->
+	
+	<dependency>
+        <groupId>commons-lang</groupId>
+        <artifactId>commons-lang</artifactId>
+        <version>${apache.lang}</version>
+    </dependency>
+    
+	<dependency>
+		<groupId>commons-io</groupId>
+		<artifactId>commons-io</artifactId>
+		<version>${apache.io}</version>
+	</dependency>            
   </dependencies>
 
   <properties>
 	<drools.version>5.1.1</drools.version>
+	<apache.lang>2.6</apache.lang>
+	<apache.io>2.3</apache.io>
   </properties>
   
 </project>
