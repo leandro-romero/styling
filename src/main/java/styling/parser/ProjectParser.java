@@ -22,7 +22,7 @@ public abstract class ProjectParser {
 		
 		for(File file : files) {
 			try {
-				classResults.add(ClassParser.Parse(file));
+				classResults.add(ClassParser.parse(file));
 			} catch (Exception e) {System.out.println("Error");}
 		}
 		

@@ -13,7 +13,7 @@ import styling.entities.MethodResult;
 
 public abstract class ClassParser {
 
-	public static ClassResult Parse(File file) throws IOException {
+	public static ClassResult parse(File file) throws IOException {
 
 		List<String> lineList = FileUtils.readLines(file);
 		int numberOfImports = 0;
@@ -23,8 +23,8 @@ public abstract class ClassParser {
 		
 		boolean insideClass = false;
 		
-		Pattern methodPattern = Pattern.compile("(public|protected|private) (static )?\\w+ \\w+\\(.*\\)");
-		Pattern attributePattern = Pattern.compile("(public|protected|private) \\w+ \\w+");		
+		Pattern methodPattern = Pattern.compile("(public|protected|private) (static )?\\w+(<\\w+>)? \\w+\\(.*\\)");
+		Pattern attributePattern = Pattern.compile("(public|protected|private) \\w+(<\\w+>)? \\w+");
 		
 		List<MethodResult> methodResultList = new LinkedList<MethodResult>();
 		
@@ -43,6 +43,7 @@ public abstract class ClassParser {
 				String[] resultado = line.split(" ");
 				
 				className = resultado[resultado.length - 2];
+				continue;
 			}
 			
 			boolean isMethod = methodPattern.matcher(line).find();
@@ -55,7 +56,7 @@ public abstract class ClassParser {
 				numberOfAttributes++;
 			}
 		}
-		
+
 		return new ClassResult(className, numberOfLines - 1, numberOfImports, numberOfAttributes, methodResultList);
 	}
 }

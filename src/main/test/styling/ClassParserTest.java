@@ -17,7 +17,7 @@ public class ClassParserTest {
 		
 		File file = new File("src/main/test/dummyclasses/Example.java");
 		
-		ClassResult classResult = ClassParser.Parse(file);
+		ClassResult classResult = ClassParser.parse(file);
 		
 		Assert.assertEquals("Example", classResult.getClassName());
 		Assert.assertEquals(2, classResult.getNumberOfAttributes());
