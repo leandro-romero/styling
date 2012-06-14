@@ -23,9 +23,11 @@ public abstract class ProjectParser {
 		for(File file : files) {
 			try {
 				classResults.add(ClassParser.parse(file));
-			} catch (Exception e) {System.out.println("Error");}
+			} catch (Exception e) {
+				System.out.println("Ocurrio un error al intentar parsear el archivo: " + file.getName());
+			}
 		}
 		
 		return new ProjectResult(classResults);
-	}	
+	}
 }

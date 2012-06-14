@@ -8,6 +8,7 @@ import junit.framework.Assert;
 import org.junit.Test;
 
 import styling.entities.ClassResult;
+import styling.entities.MethodResult;
 import styling.parser.ClassParser;
 
 public class ClassParserTest {
@@ -21,7 +22,14 @@ public class ClassParserTest {
 		
 		Assert.assertEquals("Example", classResult.getClassName());
 		Assert.assertEquals(2, classResult.getNumberOfAttributes());
-		Assert.assertEquals(2, classResult.getMethodResultList().size());
+		Assert.assertEquals(3, classResult.getMethodResultList().size());
 		Assert.assertEquals(0, classResult.getNumberOfImports());
+
+		Assert.assertEquals(1, classResult.getMethodResultList().get(1).getNumberOfLines());
+
+		MethodResult methodResult = classResult.getMethodResultList().get(2);
+
+		Assert.assertEquals("longMethod", methodResult.getName());
+		Assert.assertEquals(6, methodResult.getNumberOfLines());
 	}
 }

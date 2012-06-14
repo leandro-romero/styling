@@ -11,4 +11,13 @@ public class Example {
 	public int test2() {
 		return entero1 + entero2;
 	}
+
+	public int longMethod() {
+		int a = 1;
+		int b = 4;
+
+		int j = a >> b;
+
+		return j;
+	}
 }

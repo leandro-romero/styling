@@ -22,11 +22,14 @@ public abstract class ClassParser {
 		String className = "";
 		
 		boolean insideClass = false;
+		boolean insideMethod = false;
 		
 		Pattern methodPattern = Pattern.compile("(public|protected|private) (static )?\\w+(<\\w+>)? \\w+\\(.*\\)");
 		Pattern attributePattern = Pattern.compile("(public|protected|private) \\w+(<\\w+>)? \\w+");
 		
 		List<MethodResult> methodResultList = new LinkedList<MethodResult>();
+		MethodResult newMethod = null;
+		int numberOflinesOfMethod = 0;
 		
 		for (String line : lineList) {
 			
@@ -38,6 +41,10 @@ public abstract class ClassParser {
 				numberOfLines++;
 			}
 			
+			if (insideMethod) {
+				numberOflinesOfMethod++;
+			}
+
 			if (line.startsWith("public") && line.contains("class") && className.isEmpty()) {
 				insideClass = true;
 				String[] resultado = line.split(" ");
@@ -45,17 +52,35 @@ public abstract class ClassParser {
 				className = resultado[resultado.length - 2];
 				continue;
 			}
-			
+
 			boolean isMethod = methodPattern.matcher(line).find();
-			
+
 			if (isMethod) {
-				methodResultList.add(new MethodResult("", 0));
+
+				if (newMethod != null) {
+					newMethod.setNumberOfLines(numberOflinesOfMethod - 1);
+					methodResultList.add(newMethod);
+				}
+
+				String methodName = line.substring(line.lastIndexOf(' ', line.indexOf('(')) + 1, line.indexOf('('));
+
+				newMethod = new MethodResult(methodName, 0);
+
+				numberOflinesOfMethod = 0;
+				insideMethod = true;
 			}
-			
+
 			if (!isMethod && attributePattern.matcher(line).find()) {
 				numberOfAttributes++;
 			}
+
+			if (line.startsWith("\t}")) {
+				insideMethod = false;
+			}
 		}
+
+		newMethod.setNumberOfLines(numberOflinesOfMethod - 1);
+		methodResultList.add(newMethod);
 
 		return new ClassResult(className, numberOfLines - 1, numberOfImports, numberOfAttributes, methodResultList);
 	}
