@@ -11,12 +11,12 @@ import styling.entities.ClassResult;
 import styling.entities.MethodResult;
 import styling.parser.ClassParser;
 
-public class ClassParserTest {
+public class TestClassParser {
 
 	@Test
 	public void testSimpleClass() throws IOException {
 		
-		File file = new File("src/main/test/dummyclasses/Example.java");
+		File file = new File("src/test/java/dummyclasses/Example.java");
 		
 		ClassResult classResult = ClassParser.parse(file);
 		
