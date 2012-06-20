@@ -3,12 +3,16 @@ package styling;
 import styling.entities.ClassResult;
 import styling.entities.MethodResult;
 
+import java.util.LinkedList;
+
+global LinkedList OUTPUT_LIST;
+
 rule "class with too much logic"
 dialect "mvel"
 when
 	$class : ClassResult(numberOfLines > 400)
 then
-	System.out.println("Rule class with too much logic: " + $class.className);
+	OUTPUT_LIST.add("Rule class with too much logic: " + $class.className);
 end
 
 rule "class with too much functionality"
@@ -16,7 +20,7 @@ dialect "mvel"
 when
 	$class : ClassResult(methodResultList.size > 12)
 then
-	System.out.println("Rule class with too much functionality: " + $class.className);
+	OUTPUT_LIST.add("Rule class with too much functionality: " + $class.className);
 end
 
 rule "class with too many dependencies"
@@ -24,7 +28,7 @@ dialect "mvel"
 when
 	$class : ClassResult(numberOfImports > 25)
 then
-	System.out.println("Rule class with too many dependencies: " + $class.className);
+	OUTPUT_LIST.add("Rule class with too many dependencies: " + $class.className);
 end
 
 rule "class with too many attributes"
@@ -32,5 +36,5 @@ dialect "mvel"
 when
 	$class : ClassResult(numberOfAttributes > 10)
 then
-	System.out.println("Rule class with too many attributes: " + $class.className);
+	OUTPUT_LIST.add("Rule class with too many attributes: " + $class.className);
 end
