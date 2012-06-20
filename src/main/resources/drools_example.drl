@@ -1,6 +1,36 @@
-rule "Example"
+package styling;
+
+import styling.entities.ClassResult;
+import styling.entities.MethodResult;
+
+rule "clase con demasiada logica"
+dialect "mvel"
 when
-	Integer()
+	$class : ClassResult(numberOfLines > 400)
 then
-	System.out.println("It works!");
+	System.out.println("Regla clase con demasiada logica: " + $class.className);
+end
+
+rule "clase con excesiva funcionalidad"
+dialect "mvel"
+when
+	$class : ClassResult(methodResultList.size() > 12)
+then
+	System.out.println("Regla clase con excesiva funcionalidad: " + $class.className);
+end
+
+rule "clase con demasiadas dependencias"
+dialect "mvel"
+when
+	$class : ClassResult(numberOfImports > 25)
+then
+	System.out.println("Regla clase con demasiadas dependencias: " + $class.className);
+end
+
+rule "clase con demasiados atributos"
+dialect "mvel"
+when
+	$class : ClassResult(numberOfAttributes > 10)
+then
+	System.out.println("Regla clase con demasiados atributos: " + $class.className);
 end
