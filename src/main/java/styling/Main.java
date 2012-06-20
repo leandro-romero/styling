@@ -9,12 +9,16 @@ import org.drools.builder.ResourceType;
 import org.drools.io.ResourceFactory;
 import org.drools.runtime.StatefulKnowledgeSession;
 
+import styling.entities.ClassResult;
+import styling.entities.ProjectResult;
+import styling.parser.ProjectParser;
+
 public class Main {
 
     public static void main(String[] args) {
 
         KnowledgeBuilder kBuilder = KnowledgeBuilderFactory.newKnowledgeBuilder();
-        kBuilder.add(ResourceFactory.newFileResource("src/main/resources/drools_example.drl"), ResourceType.DRL);
+        kBuilder.add(ResourceFactory.newFileResource("src/main/resources/style_rules.drl"), ResourceType.DRL);
 
         KnowledgeBaseConfiguration kBaseConfiguration = KnowledgeBaseFactory.newKnowledgeBaseConfiguration();
 
@@ -29,10 +33,13 @@ public class Main {
     }
 
     private static void insertFacts(StatefulKnowledgeSession kSession) {
-        
-    	Integer prueba = new Integer(5);
+
+    	ProjectResult projectResult = ProjectParser.parse("src/main/java");
+   	
+    	for (ClassResult classResult : projectResult.getClassResultList()) {
+    		kSession.insert(classResult);
+		}
     	
-        kSession.insert(prueba);
-        kSession.fireAllRules();
+    	kSession.fireAllRules();
     }
 }
