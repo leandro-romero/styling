@@ -14,7 +14,7 @@ end
 rule "class with too much functionality"
 dialect "mvel"
 when
-	$class : ClassResult(methodResultList.size() > 12)
+	$class : ClassResult(methodResultList.size > 12)
 then
 	System.out.println("Rule class with too much functionality: " + $class.className);
 end
