@@ -2,17 +2,17 @@ package styling;
 
 import styling.entities.ClassResult;
 import styling.entities.MethodResult;
+import styling.drools.DroolsResult;
+import java.util.*
 
-import java.util.LinkedList;
-
-global LinkedList OUTPUT_LIST;
+global DroolsResult DROOLS_RESULT;
 
 rule "class with too much logic"
 dialect "mvel"
 when
 	$class : ClassResult(numberOfLines > 400)
 then
-	OUTPUT_LIST.add("Rule class with too much logic: " + $class.className);
+	DROOLS_RESULT.add($class.className, "Rule class with too much logic: " + $class.className);
 end
 
 rule "class with too much functionality"
@@ -20,7 +20,7 @@ dialect "mvel"
 when
 	$class : ClassResult(methodResultList.size > 12)
 then
-	OUTPUT_LIST.add("Rule class with too much functionality: " + $class.className);
+	DROOLS_RESULT.add($class.className, "Rule class with too much functionality: " + $class.className);
 end
 
 rule "class with too many dependencies"
@@ -28,7 +28,7 @@ dialect "mvel"
 when
 	$class : ClassResult(numberOfImports > 25)
 then
-	OUTPUT_LIST.add("Rule class with too many dependencies: " + $class.className);
+	DROOLS_RESULT.add($class.className, "Rule class with too many dependencies: " + $class.className);
 end
 
 rule "class with too many attributes"
@@ -36,5 +36,16 @@ dialect "mvel"
 when
 	$class : ClassResult(numberOfAttributes > 10)
 then
-	OUTPUT_LIST.add("Rule class with too many attributes: " + $class.className);
+	DROOLS_RESULT.add($class.className, "Rule class with too many attributes: " + $class.className);
+end
+
+rule "long method"
+dialect "mvel"
+when
+	$class : ClassResult()
+	$methodsFounds : List(size > 0) from collect(MethodResult(numberOfLines > 25) from $class.methodResultList)
+then
+	for(MethodResult method : $methodsFounds) {
+		DROOLS_RESULT.add($class.className, "Rule long method: " + method.name);
+	}
 end

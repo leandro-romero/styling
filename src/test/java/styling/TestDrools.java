@@ -8,6 +8,7 @@ import org.drools.runtime.StatefulKnowledgeSession;
 import org.junit.Test;
 
 import styling.drools.DroolsHelper;
+import styling.drools.DroolsResult;
 import styling.entities.ClassResult;
 import styling.entities.MethodResult;
 
@@ -39,7 +40,7 @@ public class TestDrools {
 		
 		StatefulKnowledgeSession kSession = DroolsHelper.createSession("src/main/resources/style_rules.drl");
 		
-		kSession.setGlobal("OUTPUT_LIST", new LinkedList<String>());
+		kSession.setGlobal("DROOLS_RESULT", new DroolsResult());
 		
 		return kSession;
 	}
