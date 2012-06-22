@@ -9,8 +9,17 @@ public class GitDownloader {
 		try {
 			
 			String userHome = System.getProperty("user.home");			
-			Runtime.getRuntime().exec("mkdir " + userHome + "/workspace/");
-			Runtime.getRuntime().exec("git clone " + repository + " " + userHome + "/workspace/" + projectName);
+			
+			Process mkdirProcess = Runtime.getRuntime().exec("mkdir " + userHome + "/workspace/");
+			mkdirProcess.waitFor();
+			
+			String comandoGit = "git clone " + repository + " " + userHome + "/workspace/" + projectName;
+			
+			System.out.println("Comando git a ejecutar: " + comandoGit);
+			
+			Process gitProcess = Runtime.getRuntime().exec(comandoGit);
+			gitProcess.waitFor();
+
 			path = userHome + "/workspace/" + projectName;
 		} catch (Exception e) {
 			e.printStackTrace();
